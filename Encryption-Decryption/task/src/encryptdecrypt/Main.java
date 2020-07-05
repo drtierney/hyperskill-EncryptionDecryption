@@ -1,23 +1,36 @@
 package encryptdecrypt;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String flag = scanner.nextLine();
-        String str = scanner.nextLine();
-        int shift = scanner.nextInt();
+        String mode = "enc";
+        int key = 0;
+        String data = "";
+
+        for(int i = 0; i < args.length; i += 2){
+            switch (args[i]){
+                case "-mode":
+                    mode = args[i+1];
+                    break;
+                case "-key":
+                    key = Integer.parseInt(args[i+1]);
+                    break;
+                case "-data":
+                    data = args[i+1];
+                    break;
+            }
+        }
 
         String result = "";
 
-        switch (flag) {
+        switch (mode) {
             case "enc":
-                result = encrypt(str, shift);
+                result = encrypt(data, key);
                 break;
             case "dec":
-                result = decrypt(str, shift);
+                result = decrypt(data, key);
                 break;
+            default:
+                System.out.println("Unknown operation");
         }
         System.out.println(result);
     }
