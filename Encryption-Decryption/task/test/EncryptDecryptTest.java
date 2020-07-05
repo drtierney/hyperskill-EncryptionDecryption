@@ -1,90 +1,47 @@
 import encryptdecrypt.Main;
 import org.hyperskill.hstest.v6.stage.BaseStageTest;
-import org.hyperskill.hstest.v6.testcase.CheckResult;
-import org.hyperskill.hstest.v6.testcase.TestCase;
+import org.hyperskill.hstest.v6.testcase.PredefinedIOTestCase;
 
 import java.util.List;
 
-
-class Attach {
-    String original;
-    int shift;
-    String output;
-
-    public Attach(String original, int shift, String output) {
-        this.original = original;
-        this.shift = shift;
-        this.output = output;
-    }
-}
-
-public class EncryptDecryptTest extends BaseStageTest<Attach> {
-    public EncryptDecryptTest() {
+public class EncryptDecryptTest extends BaseStageTest {
+    public EncryptDecryptTest() throws Exception {
         super(Main.class);
     }
 
     @Override
-    public List<TestCase<Attach>> generate() {
+    public List<PredefinedIOTestCase> generate() {
         return List.of(
-            new TestCase<Attach>()
-                .setInput("welcome to hyperskill\n5")
-                .setAttach(new Attach(
-                    "welcome to hyperskill",
-                    5,
-                    "bjqhtrj yt mdujwxpnqq")),
-
-            new TestCase<Attach>()
-                .setInput("treasure\n10")
-                .setAttach(new Attach(
-                    "treasure",
-                    10,
-                    "dbokcebo"
-                )),
-
-            new TestCase<Attach>()
-                .setInput("qdvdqvrxqwxrxwpvrxspvxiqgdiqarairpbiqqid\n12")
-                .setAttach(new Attach(
-                    "qdvdqvrxqwxrxwpvrxspvxiqgdiqarairpbiqqid",
-                    12,
-                    "cphpchdjcijdjibhdjebhjucspucmdmudbnuccup"
-                )),
-
-            new TestCase<Attach>()
-                .setInput("y\n10")
-                .setAttach(new Attach(
-                    "y",
-                    10,
-                    "i"
-                ))
+            new PredefinedIOTestCase(
+                "enc\n" +
+                    "Welcome to hyperskill!\n" +
+                    "5",
+                "\\jqhtrj%yt%m~ujwxpnqq&"),
+            new PredefinedIOTestCase(
+                "enc\n" +
+                    "Hello\n" +
+                    "0",
+                "Hello"),
+            new PredefinedIOTestCase(
+                "enc\n" +
+                    "012345678\n" +
+                    "1",
+                "123456789"),
+            new PredefinedIOTestCase(
+                "dec\n" +
+                    "\\jqhtrj%yt%m~ujwxpnqq&\n" +
+                    "5",
+                "Welcome to hyperskill!"),
+            new PredefinedIOTestCase(
+                "dec\n" +
+                    "Hello\n" +
+                    "0",
+                "Hello"),
+            new PredefinedIOTestCase(
+                "dec\n" +
+                    "222233334444\n" +
+                    "1",
+                "111122223333")
         );
-    }
-
-    @Override
-    public CheckResult check(String reply, Attach attach) {
-        String clue = attach.output;
-        reply = reply.trim();
-        clue = clue.trim();
-        boolean isCorrect = reply.equals(clue);
-        if (isCorrect) {
-            return CheckResult.TRUE;
-        }
-        if (reply.length() != clue.length()) {
-            return CheckResult.FALSE(
-                "You should output a line with length " +
-                    clue.length() + ". " + "You output a " +
-                    "line with length " + reply.length()
-            );
-        }
-        for (int i = 0; i < clue.length(); i++) {
-            if (reply.charAt(i) != clue.charAt(i)) {
-                return CheckResult.FALSE(
-                    "Your " + (i+1) + "-th character '" + reply.charAt(i) + "'" +
-                        " is incorrect. \n" +
-                    "The right one is '" + clue.charAt(i) + "'. \n" +
-                        "Key is " + attach.shift
-                );
-            }
-        }
-        return CheckResult.TRUE;
     }
 }
