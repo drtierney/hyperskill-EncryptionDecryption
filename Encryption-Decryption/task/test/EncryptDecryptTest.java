@@ -158,7 +158,7 @@ public class EncryptDecryptTest extends BaseStageTest<String> {
         }
 
         if (!output.trim().equals(clue.trim())) {
-            return new CheckResult(false, "Wrong result in the file!");
+            return new CheckResult(false, "Wrong result in the file!" + output);
         }
 
         return new CheckResult(true);
