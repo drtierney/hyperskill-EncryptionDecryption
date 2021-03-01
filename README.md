@@ -2,7 +2,7 @@
 Developing a command line application which can encrypt/decrypt strings using various encryption algorithms.  
 https://hyperskill.org/projects/46
 
-<img src="https://github.com/drtierney/hyperskill-EncryptionDecryption/blob/master/EncryptionDecryption.gif" width="800" height="500" />
+<img src="https://github.com/drtierney/hyperskill-EncryptionDecryption/blob/main/EncryptionDecryption.gif" width="800" height="500" />
 
 ## Syntax
 
